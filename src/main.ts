@@ -32,7 +32,7 @@ const bg2 = add([
   move(LEFT, MOVEMENT),
 ]);
 
-onUpdate("bg1", (bg) => {
+onUpdate("bg", (bg) => {
   if (bg.pos.x < -innerWidth) {
     console.log("out");
     bg.pos.x = 0;
