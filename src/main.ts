@@ -1,6 +1,6 @@
 // import kaplay from "https://unpkg.com/kaplay@3000.1.17/dist/kaboom.mjs"
 // import "./style.css"; si quisieras trabajar con CSS
-import kaplay, { GameObj } from "kaplay";
+import kaplay, { AudioPlay, GameObj } from "kaplay";
 
 const MOVEMENT = 12;
 let currentScene: string = "";
@@ -8,6 +8,7 @@ let score: GameObj;
 let flappy: GameObj;
 let lives = 3;
 let pipes: GameObj[] = [];
+let playback: AudioPlay;
 // inicializando el canvas
 const k = kaplay({
   global: false,
@@ -44,6 +45,12 @@ k.loadSprite("heart", "/assets/heart.png", {
     one: { from: 0, to: 0 },
   },
 });
+// sounds
+k.loadSound("jump", "/assets/jump.mp3");
+k.loadSound("punch", "/assets/punch.mp3");
+k.loadSound("game_over", "/assets/game_over.mp3");
+k.loadSound("loop", "/assets/loop.mp3");
+k.loadSound("action", "/assets/action.mp3");
 
 // utils
 const drawScore = (
@@ -173,6 +180,8 @@ const drawFloor = () => {
 
 // escena inicial
 k.scene("idle", () => {
+  // music
+  playback = k.play("loop", { volume: 0.2 });
   // initializers
   bgEffect();
   drawUi(); // después del bg pa que no lo tape
@@ -199,6 +208,8 @@ k.scene("idle", () => {
 
 // GameOver scene
 k.scene("game_over", ({ lastScore = 0 }: { lastScore: number }) => {
+  // stop music
+  playback && playback.stop();
   // gamObjs
   bgEffect();
   k.add([
@@ -214,7 +225,8 @@ k.scene("game_over", ({ lastScore = 0 }: { lastScore: number }) => {
   drawFloor();
   // reset
   lives = 4;
-  // pipes = [];
+  // sound
+  k.play("game_over");
 });
 
 // Efecto de background
@@ -251,6 +263,9 @@ const bgEffect = () => {
 
 // escena para jugar
 k.scene("game", () => {
+  // change music
+  playback && playback.stop();
+  playback = k.play("action", { volume: 0.3 });
   // initials
   bgEffect();
 
@@ -299,12 +314,16 @@ k.scene("game", () => {
     k.shake(4);
     // restar vidas
     handleIsGameOverOrReduceHearts();
+    // sound
+    k.play("punch");
   });
 
   // acción del usuario
   k.onKeyDown("space", () => {
     flappy.jump(220);
     flappy.angle = -45;
+    // sound
+    k.play("jump", { volume: 0.1 });
   });
 
   //
