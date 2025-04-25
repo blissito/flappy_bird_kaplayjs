@@ -16,20 +16,22 @@ const k = kaplay({
   height: innerHeight < 320 ? innerHeight : 320,
 });
 
+import bgUrl from "../assets/bg.png";
+
 // carga de sprites
-k.loadSprite("bg", "/assets/bg.png");
-k.loadSprite("bird", "/assets/bird.png", {
+k.loadSprite("bg", bgUrl);
+k.loadSprite("bird", "../assets/bird.png", {
   sliceX: 3,
   sliceY: 1,
   anims: {
     fly: { from: 0, to: 2, loop: true, speed: 6, pingpong: true },
   },
 });
-k.loadSprite("floor", "/assets/floor.png");
-k.loadSprite("top-pipe", "/assets/pipe2.png");
-k.loadSprite("bottom-pipe", "/assets/pipe.png");
+k.loadSprite("floor", "../assets/floor.png");
+k.loadSprite("top-pipe", "../assets/pipe2.png");
+k.loadSprite("bottom-pipe", "../assets/pipe.png");
 // yutu
-k.loadSprite("char", "/assets/characters.png", {
+k.loadSprite("char", "../assets/characters.png", {
   sliceX: 23,
   sliceY: 4,
   anims: {
@@ -38,7 +40,7 @@ k.loadSprite("char", "/assets/characters.png", {
   },
 });
 // ui
-k.loadSprite("heart", "/assets/heart.png", {
+k.loadSprite("heart", "../assets/heart.png", {
   sliceX: 3,
   sliceY: 1,
   anims: {
@@ -46,11 +48,11 @@ k.loadSprite("heart", "/assets/heart.png", {
   },
 });
 // sounds
-k.loadSound("jump", "/assets/jump.mp3");
-k.loadSound("punch", "/assets/punch.mp3");
-k.loadSound("game_over", "/assets/game_over.mp3");
-k.loadSound("loop", "/assets/loop.mp3");
-k.loadSound("action", "/assets/action.mp3");
+k.loadSound("jump", "../assets/jump.mp3");
+k.loadSound("punch", "../assets/punch.mp3");
+k.loadSound("game_over", "../assets/game_over.mp3");
+k.loadSound("loop", "../assets/loop.mp3");
+k.loadSound("action", "../assets/action.mp3");
 
 // utils
 const drawScore = (
