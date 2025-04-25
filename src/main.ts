@@ -16,22 +16,34 @@ const k = kaplay({
   height: innerHeight < 320 ? innerHeight : 320,
 });
 
+// Leting Vite to handle assets for GithubPages
 import bgUrl from "../assets/bg.png";
+import birdUrl from "../assets/bird.png";
+import floorUrl from "../assets/floor.png";
+import topPipeUrl from "../assets/pipe2.png";
+import bottomPipeUrl from "../assets/pipe.png";
+import charUrl from "../assets/characters.png";
+import heartUrl from "../assets/heart.png";
+import jumpUrl from "../assets/jump.mp3";
+import punchUrl from "../assets/punch.mp3";
+import gameOverUrl from "../assets/game_over.mp3";
+import loopUrl from "../assets/loop.mp3";
+import actionUrl from "../assets/action.mp3";
 
 // carga de sprites
 k.loadSprite("bg", bgUrl);
-k.loadSprite("bird", "../assets/bird.png", {
+k.loadSprite("bird", birdUrl, {
   sliceX: 3,
   sliceY: 1,
   anims: {
     fly: { from: 0, to: 2, loop: true, speed: 6, pingpong: true },
   },
 });
-k.loadSprite("floor", "../assets/floor.png");
-k.loadSprite("top-pipe", "../assets/pipe2.png");
-k.loadSprite("bottom-pipe", "../assets/pipe.png");
+k.loadSprite("floor", floorUrl);
+k.loadSprite("top-pipe", topPipeUrl);
+k.loadSprite("bottom-pipe", bottomPipeUrl);
 // yutu
-k.loadSprite("char", "../assets/characters.png", {
+k.loadSprite("char", charUrl, {
   sliceX: 23,
   sliceY: 4,
   anims: {
@@ -40,7 +52,7 @@ k.loadSprite("char", "../assets/characters.png", {
   },
 });
 // ui
-k.loadSprite("heart", "../assets/heart.png", {
+k.loadSprite("heart", heartUrl, {
   sliceX: 3,
   sliceY: 1,
   anims: {
@@ -48,11 +60,11 @@ k.loadSprite("heart", "../assets/heart.png", {
   },
 });
 // sounds
-k.loadSound("jump", "../assets/jump.mp3");
-k.loadSound("punch", "../assets/punch.mp3");
-k.loadSound("game_over", "../assets/game_over.mp3");
-k.loadSound("loop", "../assets/loop.mp3");
-k.loadSound("action", "../assets/action.mp3");
+k.loadSound("jump", jumpUrl);
+k.loadSound("punch", punchUrl);
+k.loadSound("game_over", gameOverUrl);
+k.loadSound("loop", loopUrl);
+k.loadSound("action", actionUrl);
 
 // utils
 const drawScore = (
