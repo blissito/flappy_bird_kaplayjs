@@ -30,6 +30,8 @@ import gameOverUrl from "../assets/game_over.mp3";
 import loopUrl from "../assets/loop.mp3";
 import actionUrl from "../assets/action.mp3";
 
+const onClick = () => {};
+
 // carga de sprites
 k.loadSprite("bg", bgUrl);
 k.loadSprite("bird", birdUrl, {
@@ -218,6 +220,11 @@ k.scene("idle", () => {
       currentScene = "game";
     }
   });
+  // mobile
+  k.onClick(() => {
+    k.go("game");
+    currentScene = "game";
+  });
 });
 
 // GameOver scene
@@ -337,6 +344,11 @@ k.scene("game", () => {
     flappy.jump(220);
     flappy.angle = -45;
     // sound
+    k.play("jump", { volume: 0.1 });
+  });
+  k.onClick(() => {
+    flappy.jump(220);
+    flappy.angle = -45;
     k.play("jump", { volume: 0.1 });
   });
 
