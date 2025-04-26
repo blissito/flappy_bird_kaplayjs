@@ -241,6 +241,12 @@ k.scene("idle", () => {
     k.go("game");
     currentScene = "game";
   });
+  if (!isDesktop) {
+    addEventListener("click", () => {
+      k.go("game");
+      currentScene = "game";
+    });
+  }
 });
 
 // GameOver scene
