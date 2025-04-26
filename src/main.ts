@@ -149,7 +149,7 @@ const spawnPipe = (
     ]);
     pipes.push(pipe);
   } else if (pos === "bottom") {
-    const n = [6, 7][Math.floor(Math.random() * 2)];
+    const n = [7, 8][Math.floor(Math.random() * 2)];
     const y = (config?.height || 0) + k.height() / n;
     pipe = k.add([
       "pipe",
