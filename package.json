@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && npm run epub",
     "preview": "vite preview",
     "epub": "pandoc readme.md -o flappy.epub"
   },

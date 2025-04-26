@@ -5,6 +5,8 @@ Made by [@Héctorbliss](https://hectorbliss.com) at [Fixtergeek](https://www.fix
 
 ### Juegalo [aquí](https://blissito.github.io/flappy_bird_kaplayjs/)
 
+### Descarga el e-book [aquí](flappy.epub)
+
 ![blissito's flappy bird game](https://i.imgur.com/MT37bLN.png)
 
 # Construye tu propio Flappy-Bird con KaPlay
