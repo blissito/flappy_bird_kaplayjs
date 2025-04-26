@@ -241,12 +241,12 @@ k.scene("idle", () => {
     k.go("game");
     currentScene = "game";
   });
-  if (!isDesktop) {
-    addEventListener("click", () => {
-      k.go("game");
-      currentScene = "game";
-    });
-  }
+  // if (!isDesktop) {
+  addEventListener("click", () => {
+    k.go("game");
+    currentScene = "game";
+  });
+  // }
 });
 
 // GameOver scene
@@ -291,6 +291,12 @@ k.scene("game_over", ({ lastScore = 0 }: { lastScore: number }) => {
     k.pos(k.width() / 2 - 100, k.height() / 4),
     { value: 0 },
   ]);
+
+  // mobile
+  k.onClick(() => {
+    k.go("game");
+    currentScene = "game";
+  });
 
   // reset
   lives = 4;
