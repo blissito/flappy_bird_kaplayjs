@@ -260,6 +260,15 @@ k.scene("game_over", ({ lastScore = 0 }: { lastScore: number }) => {
   drawScore(k.width() / 2 - 100, k.height() / 3, lastScore);
   drawInstructions();
   drawFloor();
+  // agregamos el personaje principal
+  k.add([
+    "bird",
+    k.scale(3),
+    k.sprite("char", {
+      anim: "green",
+    }),
+    k.pos(140, k.height() / 1.24),
+  ]);
   // saving record
   const record = localStorage.getItem("record")
     ? Number(localStorage.getItem("record"))
@@ -389,4 +398,4 @@ k.scene("game", () => {
 });
 
 // iniciamos con la escena de espera
-k.go("idle", { lastScore: 0 });
+k.go("game_over", { lastScore: 0 });
