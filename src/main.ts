@@ -10,10 +10,11 @@ let lives = 3;
 let pipes: GameObj[] = [];
 let playback: AudioPlay;
 // inicializando el canvas
+const isDesktop = innerWidth > 760;
 const k = kaplay({
   global: false,
   width: innerWidth,
-  height: innerHeight,
+  height: isDesktop ? 560 : innerHeight,
 });
 
 // Leting Vite to handle assets for GithubPages
@@ -107,7 +108,7 @@ const drawUi = () => {
       const h = k.add([
         k.sprite("heart", { anim: "one" }),
         k.pos(k.vec2(44 * (index + 1), 24)),
-        k.scale(0.6),
+        k.scale(0.5),
       ]);
       hearts.push(h);
     });
@@ -124,8 +125,8 @@ const spawnPipe = (
 ) => {
   const getPipeSize = () => {
     const sizes = [
-      [innerWidth / 4, innerHeight / 3],
-      [innerWidth / 4, innerHeight / 2.5],
+      [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 3],
+      [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 2.5],
     ];
     const index = Math.floor(Math.random() * sizes.length);
     return {
@@ -149,7 +150,7 @@ const spawnPipe = (
     pipes.push(pipe);
   } else if (pos === "bottom") {
     const n = [4, 5][Math.floor(Math.random() * 2)];
-    const y = (config?.height || 0) + innerHeight / n;
+    const y = (config?.height || 0) + k.height() / n;
     pipe = k.add([
       "pipe",
       // k.stay(), // permanece aún con el cambio de escena
@@ -179,43 +180,6 @@ const spawnPipes = () => {
     k.body({ isStatic: true }), // le quitamos la gravedad
     // move(k.LEFT, MOVEMENT + 50), // @todo animamos?
   ]);
-  // remove pipes?
-
-  return;
-  // la altura se obtiene aleatoriamente
-  const y = k.rand(-120, 0);
-  // mientras que la segunda altura depende de la primera
-  const y2 = 260 + y;
-  // agregamos el tubo de arriba usando y
-  const tp = k.add([
-    "pipe",
-    // k.stay(), // permanece aún con el cambio de escena
-    k.sprite("top-pipe", { width: 58 }),
-    k.pos(k.width(), y), // la colocamos al final
-    k.move(k.LEFT, MOVEMENT * 10), // la movemos
-    k.area(), // pa que colisione
-    k.offscreen({ destroy: true }), // limpiamos si sale de pantalla (cleanUp) 😌
-  ]);
-
-  // Añadimos la tubería de abajo usando y2
-  const bp = k.add([
-    "pipe",
-    // k.stay(), // permanece aún con el cambio de escena
-    k.sprite("bottom-pipe", { width: 58 }),
-    k.pos(k.width(), y2),
-    k.move(k.LEFT, MOVEMENT * 10),
-    k.area(),
-    k.offscreen({ destroy: true }),
-    // @todo nos repetimos, esto podría ser un componente
-  ]);
-  // store'em
-  pipes.push(tp);
-  pipes.push(bp);
-
-  k.wait(k.rand(1.5, 3), () => {
-    k.destroy(floor); // it solves an async bug
-    spawnPipes(); // recursividad
-  });
 };
 
 //Quitar corazones

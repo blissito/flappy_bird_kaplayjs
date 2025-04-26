@@ -3,6 +3,10 @@
 This is the repo for the flappy bird project of the Fixtergeek course.
 Made by: [Fixtergeek](https://www.fixtergeek.com)
 
+### Juegalo [aquí](https://blissito.github.io/flappy_bird_kaplayjs/)
+
+![blissito's flappy bird game](https://i.imgur.com/MT37bLN.png)
+
 # Construye tu propio Flappy-Bird con KaPlay
 
 Es importante decir que para aumentar las probabilidades de que este tutorial sea completado con moderado éxito, se espera que el lector posea conocimientos básicos de la sintaxis de **ECMAScript6 (ES2015/ES6)** al que nos referiremos solo como **JS**. Y haber practicado un poquito con el lenguaje también nos vendría bien para disfrutar un poco más este tutorial. Te dejo un link donde podrías comenzar, más despacio y en un nivel más básico. Luego vuelves a este, no te preocupes, no se va a ir a ninguna parte. 🏃🏻💨
