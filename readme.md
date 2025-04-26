@@ -1,13 +1,21 @@
+---
+author:
+  - Héctorbliss
+cover-image: assets/cover.png
+publisher: Fixtergeek
+rights: © 2025 Héctorbliss
+---
+
 ## Flappy Bird Simple Kaplay Web Version Just For Fun
 
-This is the repo for the flappy bird project of the Fixtergeek course.
+Welcome to Fixtergeek's flappy bird web game project. 🦤
 Made by [@Héctorbliss](https://hectorbliss.com) at [Fixtergeek](https://www.fixtergeek.com)
 
 ### Juegalo [aquí](https://blissito.github.io/flappy_bird_kaplayjs/)
 
 ### Descarga el e-book [aquí](flappy.epub)
 
-![blissito's flappy bird game](https://i.imgur.com/MT37bLN.png)
+![Construyendo flappyBird con blissito](https://i.imgur.com/MT37bLN.png)
 
 # Construye tu propio Flappy-Bird con KaPlay
 
