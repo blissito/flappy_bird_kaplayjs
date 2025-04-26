@@ -6,10 +6,10 @@ publisher: Fixtergeek
 rights: © 2025 Héctorbliss
 ---
 
-## Flappy Bird Simple Kaplay Web Version Just For Fun
+## Flappy Bird Simple Kaplay Web Version, Just For Fun.
 
 Welcome to Fixtergeek's flappy bird web game project. 🦤
-Made by [@Héctorbliss](https://hectorbliss.com) at [Fixtergeek](https://www.fixtergeek.com)
+Made by [@Héctorbliss](https://hectorbliss.com) at [Fixtergeek](https://www.fixtergeek.com) in spanish.
 
 ### Juegalo [aquí](https://blissito.github.io/flappy_bird_kaplayjs/)
 

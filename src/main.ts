@@ -241,12 +241,6 @@ k.scene("idle", () => {
     k.go("game");
     currentScene = "game";
   });
-  // if (!isDesktop) {
-  addEventListener("click", () => {
-    k.go("game");
-    currentScene = "game";
-  });
-  // }
 });
 
 // GameOver scene
@@ -410,4 +404,4 @@ k.scene("game", () => {
 });
 
 // iniciamos con la escena de espera
-k.go("game_over", { lastScore: 0 });
+k.go("idle", { lastScore: 0 });
