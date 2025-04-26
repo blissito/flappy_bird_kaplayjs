@@ -389,4 +389,4 @@ k.scene("game", () => {
 });
 
 // iniciamos con la escena de espera
-k.go("game_over", { lastScore: 0 });
+k.go("idle", { lastScore: 0 });
