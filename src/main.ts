@@ -30,8 +30,6 @@ import gameOverUrl from "../assets/game_over.mp3";
 import loopUrl from "../assets/loop.mp3";
 import actionUrl from "../assets/action.mp3";
 
-const onClick = () => {};
-
 // carga de sprites
 k.loadSprite("bg", bgUrl);
 k.loadSprite("bird", birdUrl, {
@@ -122,7 +120,7 @@ const drawUi = () => {
 
 const spawnPipe = (
   pos: "top" | "bottom",
-  config?: { width: number; height: number }
+  config?: { width?: number; height: number }
 ) => {
   const getPipeSize = () => {
     const sizes = [
