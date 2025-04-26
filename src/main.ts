@@ -13,7 +13,7 @@ let playback: AudioPlay;
 const k = kaplay({
   global: false,
   width: innerWidth,
-  height: innerHeight < 320 ? innerHeight : 320,
+  height: innerHeight,
 });
 
 // Leting Vite to handle assets for GithubPages
@@ -70,14 +70,14 @@ k.loadSound("action", actionUrl);
 
 // utils
 const drawScore = (
-  x: number = k.width() / 1.5,
-  y: number = 24,
+  x: number = k.width() / 1.7,
+  y: number = 30,
   lastScore: number = 0
 ) => {
   score = k.add([
     // k.stay(),
     k.text(`Tubos: ${lastScore}`, {
-      size: 40,
+      size: 20,
     }),
     k.color(k.Color.BLACK),
     k.pos(x, y),
@@ -87,8 +87,8 @@ const drawScore = (
 
 const drawInstructions = () => {
   k.add([
-    k.text("Press the 'space-bar' to restart", { size: 24 }),
-    k.pos(k.width() / 5, k.height() / 1.4),
+    k.text("Press the 'space-bar' to restart", { size: 14 }),
+    k.pos(k.width() / 5, k.height() / 2.5),
     k.color(k.Color.BLACK),
   ]);
 
@@ -119,7 +119,71 @@ const drawUi = () => {
   drawScore();
 };
 // Generación de tuberías: 🧪
+
+const spawnPipe = (
+  pos: "top" | "bottom",
+  config?: { width: number; height: number }
+) => {
+  const getPipeSize = () => {
+    const sizes = [
+      [innerWidth / 4, innerHeight / 3],
+      [innerWidth / 4, innerHeight / 2.5],
+    ];
+    const index = Math.floor(Math.random() * sizes.length);
+    return {
+      width: config?.width || sizes[index][0],
+      height: config?.height || sizes[index][1],
+    };
+  };
+  let pipe: GameObj;
+  const size = getPipeSize();
+  if (pos === "top") {
+    const y = 0;
+    pipe = k.add([
+      "pipe",
+      // k.stay(), // permanece aún con el cambio de escena
+      k.sprite("top-pipe", size),
+      k.pos(k.width(), y), // la colocamos al final
+      k.move(k.LEFT, MOVEMENT * 10), // la movemos
+      k.area(), // pa que colisione
+      k.offscreen({ destroy: true }),
+    ]);
+    pipes.push(pipe);
+  } else if (pos === "bottom") {
+    const n = [4, 5][Math.floor(Math.random() * 2)];
+    const y = (config?.height || 0) + innerHeight / n;
+    pipe = k.add([
+      "pipe",
+      // k.stay(), // permanece aún con el cambio de escena
+      k.sprite("bottom-pipe", getPipeSize()),
+      k.pos(k.width(), y), // la colocamos al final
+      k.move(k.LEFT, MOVEMENT * 10), // la movemos
+      k.area(), // pa que colisione
+      k.offscreen({ destroy: true }),
+    ]);
+  }
+  return size;
+};
+
 const spawnPipes = () => {
+  const firstSize = spawnPipe("top");
+  spawnPipe("bottom", { height: firstSize.height });
+  k.wait(k.rand(1.5, 3), () => {
+    k.destroy(floor); // it solves an async bug
+    spawnPipes(); // recursividad
+  });
+  // ponemos una plataforma como piso
+  const floor = k.add([
+    "floor",
+    k.sprite("floor", { width: k.width(), height: 68 }),
+    k.pos(0, k.height() - 68), // corregimos
+    k.area(), // pa que choque el pajarito
+    k.body({ isStatic: true }), // le quitamos la gravedad
+    // move(k.LEFT, MOVEMENT + 50), // @todo animamos?
+  ]);
+  // remove pipes?
+
+  return;
   // la altura se obtiene aleatoriamente
   const y = k.rand(-120, 0);
   // mientras que la segunda altura depende de la primera
@@ -149,16 +213,6 @@ const spawnPipes = () => {
   // store'em
   pipes.push(tp);
   pipes.push(bp);
-
-  // ponemos una plataforma como piso
-  const floor = k.add([
-    "floor",
-    k.sprite("floor", { width: k.width(), height: 68 }),
-    k.pos(0, k.height() - 34), // corregimos
-    k.area(), // pa que choque el pajarito
-    k.body({ isStatic: true }), // le quitamos la gravedad
-    // move(k.LEFT, MOVEMENT + 50), // @todo animamos?
-  ]);
 
   k.wait(k.rand(1.5, 3), () => {
     k.destroy(floor); // it solves an async bug
@@ -209,7 +263,7 @@ k.scene("idle", () => {
     k.sprite("char", {
       anim: "green",
     }),
-    k.pos(140, k.height() / 1.7),
+    k.pos(140, k.height() / 1.24),
   ]);
 
   // acción del usuario
@@ -235,15 +289,32 @@ k.scene("game_over", ({ lastScore = 0 }: { lastScore: number }) => {
   bgEffect();
   k.add([
     k.text("GAME OVER", {
-      size: 80,
+      size: 40,
       font: "san-serif",
     }),
     k.color(k.Color.BLACK), // cambiamos el color
-    k.pos(k.width() / 2 - 240, k.height() / 6),
+    k.pos(k.width() / 2 - 120, k.height() / 6),
   ]);
-  drawScore(k.width() / 2 - 100, k.height() / 2, lastScore);
+  drawScore(k.width() / 2 - 100, k.height() / 3, lastScore);
   drawInstructions();
   drawFloor();
+  // saving record
+  const record = localStorage.getItem("record")
+    ? Number(localStorage.getItem("record"))
+    : 0;
+  if (lastScore > record) {
+    localStorage.setItem("record", String(lastScore));
+  }
+  score = k.add([
+    // k.stay(),
+    k.text(`Record: ${record}`, {
+      size: 20,
+    }),
+    k.color(k.Color.BLACK),
+    k.pos(k.width() / 2 - 100, k.height() / 4),
+    { value: 0 },
+  ]);
+
   // reset
   lives = 4;
   // sound
@@ -321,7 +392,7 @@ k.scene("game", () => {
     const limit = flappy.pos.x;
     pipes = pipes.filter((pipe) => {
       if (pipe.pos.x < limit) {
-        score.value += 0.5;
+        score.value += 1;
         score.text = "Tubos: " + score.value;
         return false;
       }
@@ -356,4 +427,4 @@ k.scene("game", () => {
 });
 
 // iniciamos con la escena de espera
-k.go("idle");
+k.go("game_over", { lastScore: 0 });
