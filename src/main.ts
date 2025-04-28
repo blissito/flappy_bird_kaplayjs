@@ -130,8 +130,8 @@ const spawnPipe = (
     const sizes = [
       // [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 3], // works for every screen
       // [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 2.5],
-      [k.width() / 6, k.height() / 2.5], // works if h and w fixed to 480x640
-      [k.width() / 6, k.height() / 2],
+      [k.width() / 7, k.height() / 2.5], // works if h and w fixed to 480x640
+      [k.width() / 7, k.height() / 2],
     ];
     const index = Math.floor(Math.random() * sizes.length);
     return {
@@ -181,9 +181,17 @@ const spawnPipes = () => {
     "floor",
     k.sprite("floor", { width: k.width(), height: 68 }),
     k.pos(0, k.height() - 68), // corregimos
-    k.area(), // pa que choque el pajarito
+    // k.area(), // pa que choque el pajarito
     k.body({ isStatic: true }), // le quitamos la gravedad
-    // move(k.LEFT, MOVEMENT + 50), // @todo animamos?
+    k.move(k.LEFT, MOVEMENT * 10),
+  ]);
+  const floor2 = k.add([
+    "floor",
+    k.sprite("floor", { width: k.width(), height: 68 }),
+    k.pos(k.width(), k.height() - 68), // corregimos
+    // k.area(), // pa que choque el pajarito
+    k.body({ isStatic: true }), // le quitamos la gravedad
+    k.move(k.LEFT, MOVEMENT * 10),
   ]);
 };
 
@@ -208,7 +216,7 @@ const drawFloor = () => {
     "floor",
     // k.stay(), // stay in game over
     k.sprite("floor", { width: k.width(), height: 68 }),
-    k.pos(0, k.height() - 34),
+    k.pos(0, k.height() - 68),
     k.area(),
     k.body({ isStatic: true }),
     // move(k.LEFT, MOVEMENT + 50), @todo animar?
@@ -410,4 +418,4 @@ k.scene("game", () => {
 });
 
 // iniciamos con la escena de espera
-k.go("idle", { lastScore: 0 });
+k.go("game", { lastScore: 0 });
