@@ -13,8 +13,11 @@ let playback: AudioPlay;
 const isDesktop = innerWidth > 760;
 const k = kaplay({
   global: false,
-  width: innerWidth,
-  height: isDesktop ? 560 : innerHeight,
+  // width: innerWidth,
+  // height: isDesktop ? 560 : innerHeight,
+  width: 480,
+  height: 640,
+  canvas: document.querySelector("#centered_canvas") as HTMLCanvasElement,
 });
 
 // Leting Vite to handle assets for GithubPages
@@ -125,8 +128,10 @@ const spawnPipe = (
 ) => {
   const getPipeSize = () => {
     const sizes = [
-      [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 3],
-      [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 2.5],
+      // [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 3], // works for every screen
+      // [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 2.5],
+      [k.width() / 5, k.height() / 2.5], // works if h and w fixed to 480x640
+      [k.width() / 5, k.height() / 2],
     ];
     const index = Math.floor(Math.random() * sizes.length);
     return {
