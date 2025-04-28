@@ -174,6 +174,7 @@ const spawnPipes = () => {
   spawnPipe("bottom", { height: firstSize.height });
   k.wait(k.rand(1.5, 3), () => {
     k.destroy(floor); // it solves an async bug
+    k.destroy(floor2);
     spawnPipes(); // recursividad
   });
   // ponemos una plataforma como piso
