@@ -10,7 +10,7 @@ let lives = 3;
 let pipes: GameObj[] = [];
 let playback: AudioPlay;
 // inicializando el canvas
-const isDesktop = innerWidth > 760;
+// const isDesktop = innerWidth > 760;
 const k = kaplay({
   global: false,
   // width: innerWidth,
