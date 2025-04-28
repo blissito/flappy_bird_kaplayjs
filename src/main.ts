@@ -130,8 +130,8 @@ const spawnPipe = (
     const sizes = [
       // [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 3], // works for every screen
       // [isDesktop ? k.width() / 9 : k.width() / 4, k.height() / 2.5],
-      [k.width() / 5, k.height() / 2.5], // works if h and w fixed to 480x640
-      [k.width() / 5, k.height() / 2],
+      [k.width() / 6, k.height() / 2.5], // works if h and w fixed to 480x640
+      [k.width() / 6, k.height() / 2],
     ];
     const index = Math.floor(Math.random() * sizes.length);
     return {
@@ -373,7 +373,8 @@ k.scene("game", () => {
     // check if pass pair of pipes
     const limit = flappy.pos.x;
     pipes = pipes.filter((pipe) => {
-      if (pipe.pos.x < limit) {
+      // right of the pipe: (pipe.pos.x + pipe.width)
+      if (pipe.pos.x + pipe.width < limit) {
         score.value += 1;
         score.text = "Tubos: " + score.value;
         return false;
